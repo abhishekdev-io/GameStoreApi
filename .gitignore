@@ -1,0 +1,67 @@
+﻿# ==============================
+# Visual Studio
+# ==============================
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore Visual Studio user-specific project files
+*.csproj.user
+
+# ==============================
+# Build Folders
+# ==============================
+bin/
+obj/
+out/
+publish/
+
+# ==============================
+# Rider
+# ==============================
+.idea/
+
+# ==============================
+# .NET Core / ASP.NET Core
+# ==============================
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.vsix
+*.nupkg
+*.snupkg
+
+# Local development settings
+appsettings.Development.json
+secrets.json
+
+# ==============================
+# EF Core / Migrations
+# ==============================
+Migrations/
+*.db
+*.mdf
+*.ldf
+
+# ==============================
+# SQL Server LocalDB
+# ==============================
+*.mdf
+*.ldf
+
+# ==============================
+# Node / Frontend (if you add React later)
+# ==============================
+node_modules/
+
+# ==============================
+# OS Generated Files
+# ==============================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
