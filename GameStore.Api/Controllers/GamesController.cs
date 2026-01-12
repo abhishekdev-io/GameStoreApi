@@ -1,11 +1,13 @@
 ﻿using GameStore.Api.Dtos;
 using GameStore.Api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GamesController : ControllerBase
     {
         private readonly IGameServices gameServices;
@@ -18,6 +20,7 @@ namespace GameStore.Api.Controllers
         //GET
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<GameSummaryDto>>> GetGames()
         {
@@ -27,6 +30,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("{gameId:int}")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<GameDetailsDto>> GetGameById(int gameId)
@@ -38,6 +42,7 @@ namespace GameStore.Api.Controllers
         //POST
 
         [HttpPost]
+        [Authorize(Policy = "CanCreate")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateGame([FromBody] CreateGameDto newGame)
@@ -54,6 +59,7 @@ namespace GameStore.Api.Controllers
         //PUT
 
         [HttpPut("{gameId:int}")]
+        [Authorize(Policy = "CanUpdate")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateGame(int gameId,[FromBody] UpdateGameDto updateGame)
@@ -69,6 +75,7 @@ namespace GameStore.Api.Controllers
         //DELETE
 
         [HttpDelete("{gameId:int}")]
+        [Authorize(Policy = "CanDelete")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteGame(int gameId)

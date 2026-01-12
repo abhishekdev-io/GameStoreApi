@@ -21,7 +21,6 @@ namespace GameStore.Api.Mapper
             //Viewing Game
             CreateMap<Game, GameSummaryDto>();
 
-
             CreateMap<Game, GameDetailsDto>();
             
 

@@ -1,11 +1,13 @@
 ﻿using GameStore.Api.Dtos;
 using GameStore.Api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStore.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GenresController : ControllerBase
     {
         private readonly IGenresServices genreServices;
@@ -18,6 +20,7 @@ namespace GameStore.Api.Controllers
         //GET
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<GenreDto>>> GetGenres()
         {
@@ -27,6 +30,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("{genreId:int}")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<GenreDto>> GetGenreById(int genreId)
@@ -36,6 +40,7 @@ namespace GameStore.Api.Controllers
         }
 
         [HttpGet("{genreId:int}/games")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<GameSummaryDto>>> GetGamesByGenre(int genreId)
@@ -48,6 +53,7 @@ namespace GameStore.Api.Controllers
         //POST
 
         [HttpPost]
+        [Authorize(Policy = "CanCreate")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateGenre([FromBody] GenreCreateDto newGenre)
@@ -61,6 +67,7 @@ namespace GameStore.Api.Controllers
         //PUT
 
         [HttpPut("{genreId:int}")]
+        [Authorize(Policy = "CanUpdate")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateGenre(int genreId, [FromBody] UpdateGenreDto updateGenre)
@@ -74,6 +81,7 @@ namespace GameStore.Api.Controllers
         //DELETE
 
         [HttpDelete("{genreId:int}")]
+        [Authorize(Policy = "CanDelete")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteGenre(int genreId)
