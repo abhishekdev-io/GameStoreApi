@@ -1,6 +1,6 @@
-﻿# 🎮 GameStore API
+# 🎮 GameStore API
 
-A **production-ready ASP.NET Core 9 Web API** built with modern backend best practices, featuring **JWT authentication, role- and policy-based authorization, clean architecture, and secure configuration management**.
+A **production-ready ASP.NET Core 9 Web API** built with modern backend best practices, featuring **JWT authentication, role- and policy-based authorization, and secure configuration management**.
 
 ---
 
@@ -55,6 +55,7 @@ The API uses **Entity Framework Core** for data access, **AutoMapper** for DTO m
 - **JWT Authentication**
 - **Policy-based Authorization**
 - **AutoMapper**
+- **Unit & Integration Testing (XUnit,Moq and FluentAssertion)**
 - **Scalar** (used instead of Swagger)
 - **User Secrets** (for secure local development)
 
@@ -117,29 +118,36 @@ dotnet user-secrets set "ConnectionStrings:GameStore" "YOUR_DB_CONNECTION_STRING
 dotnet run
 ```
 
-## 🧪 API Testing
+## 🧪 Testing
 
+### API Testing
 - Scalar UI is enabled for API exploration
-
 - JWT Bearer authentication supported
-
 - Role & policy restrictions enforced at endpoint level
+
+### Automated Testing
+- **Unit Testing**: Covers services using xUnit, Moq, and FluentAssertions (`GameStore.Test`).
+- **Integration Testing**: Uses `WebApplicationFactory` with an isolated in-memory SQLite database provider for end-to-end endpoint verification (`GameStore.IntegrationTests`).
 
 ## 📂 Project Structure 
 
 ```plaintext
-GameStoreApi
+GameStore
 │
-├── Controllers
-├── Services
-├── Interfaces
-├── DTOs
-├── Entities
-├── Mappings
-├── Extensions
-├── Middleware
-├── Data
-└── Program.cs
+├── GameStore.Api                 # Main API Project
+│   ├── Controllers
+│   ├── Services
+│   ├── Interfaces
+│   ├── DTOs
+│   ├── Entities
+│   ├── Mappings
+│   ├── Extensions
+│   ├── Middleware
+│   ├── Data
+│   └── Program.cs
+│
+├── GameStore.Test                # Unit Tests (xUnit, Moq)
+└── GameStore.IntegrationTests    # Integration Tests (SQLite, WebApplicationFactory)
 ```
 
 ## 📄 License
