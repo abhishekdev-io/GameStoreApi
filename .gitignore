@@ -75,3 +75,4 @@ TestResults/
 *.trx
 TestResult.xml
 coverage.info
+build_output.txt
